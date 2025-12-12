@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Enigme Telecom - Distributeur Agréé Maroc Telecom</title>
+    <meta name="description"
+        content="Enigme Telecom, votre partenaire agréé Maroc Telecom à Casablanca. Abonnement Fibre Optique, Forfaits Mobiles et Téléphonie Fixe.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="./icon.png" type="image/png" />
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <style>
+        :root {
+            /* NEW Maroc Telecom Red/Modern Theme */
+            --primary: #E60000; /* New Brand Red */
+            --primary-dark: #b30000;
+            --iam-dark: #0f172a;
+            --dark: #020617;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+        }
+
+        html {
+            overscroll-behavior: none;
+            scroll-padding-top: 5rem;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(230, 0, 0, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
+        }
+
+        .card-gradient {
+            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Custom Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-float { animation: float 5s ease-in-out infinite; }
+        .animate-pulse-slow { animation: pulse 3s ease-in-out infinite; }
+
+        /* Glow effect */
+        .glow {
+            box-shadow: 0 0 20px rgba(230, 0, 0, 0.4);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .glow:hover,
+        .glow:focus {
+            box-shadow: 0 0 30px rgba(230, 0, 0, 0.6);
+        }
+
+        /* Navigation styling */
+        .nav-link { position: relative; }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link:focus::after { width: 100%; }
+
+        #header.scrolled {
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--dark); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+        /* Particle background */
+        .particles-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(230, 0, 0, 0.15);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 5s ease-in-out infinite, fadeIn 2s ease forwards;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(2, 6, 23, 0.98);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (min-width: 640px) {
+            .mobile-menu { width: 320px; }
+        }
+
+        .mobile-menu.open { transform: translateX(0); }
+
+        /* Offer Card Styling */
+        .offer-card {
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .offer-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px -10px rgba(230, 0, 0, 0.2);
+        }
+        .price-tag {
+            color: var(--primary);
+        }
+
+        /* Features List Styling */
+        .feature-box {
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: rgba(255,255,255,0.03);
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-box i {
+            width: 24px;
+            text-align: center;
+            margin-right: 12px;
+            color: white;
+        }
+
+        /* Fix overflow */
+        .overflow-fix { overflow-x: hidden; }
+    </style>
+</head>
+
+<body class="gradient-bg overflow-fix">
+    <div class="particles-container" id="particles"></div>
+
+    <header id="header" class="fixed w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 container-padding">
+            <div class="flex items-center justify-between h-20">
+                <a href="#" class="flex items-center space-x-3">
+                   <img class="w-40" src="./logo.png" alt="Enigme Telecom">
+                </a>
+
+                <nav class="hidden lg:flex items-center space-x-10">
+                    <a href="#offres"
+                        class="nav-link text-gray-300 hover:text-white transition-colors duration-300 font-medium">Nos Offres</a>
+                    <a href="#services"
+                        class="nav-link text-gray-300 hover:text-white transition-colors duration-300 font-medium">Fibre & Mobile</a>
+                    <a href="#why-us"
+                        class="nav-link text-gray-300 hover:text-white transition-colors duration-300 font-medium">Pourquoi nous ?</a>
+                    <a href="#contact"
+                        class="bg-red-700 text-white px-6 py-3 rounded-lg hover:bg-red-800 transition-all duration-300 ease-in-out transform hover:scale-105 glow">
+                        Contacter-nous
+                    </a>
+                </nav>
+
+                <button id="mobile-menu-button"
+                    class="lg:hidden p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors z-50"
+                    aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="sr-only">Ouvrir le menu</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="flex flex-col items-center justify-center h-full px-6">
+            <button id="close-menu" class="absolute top-7 right-6 p-3 rounded-lg bg-gray-800 hover:bg-gray-700">
+                <span class="sr-only">Fermer le menu</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <nav class="flex flex-col space-y-8 text-center">
+                <a href="#offres" class="text-white text-2xl font-medium hover:text-red-500 transition-colors">Nos Offres</a>
+                <a href="#services" class="text-white text-2xl font-medium hover:text-red-500 transition-colors">Fibre & Mobile</a>
+                <a href="#why-us" class="text-white text-2xl font-medium hover:text-red-500 transition-colors">Pourquoi nous ?</a>
+                <a href="#contact"
+                    class="bg-red-700 text-white mt-8 px-8 py-4 rounded-lg hover:bg-red-800 transition-transform duration-300 ease-in-out transform hover:scale-105 glow">
+                    Contacter-nous
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <main>
+        <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16">
+            <div class="absolute inset-0 z-0 overflow-hidden">
+                <div class="absolute inset-0 bg-[url('./bg.png')] bg-cover bg-center mix-blend-overlay opacity-60"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
+            </div>
+
+            <div class="container mx-auto px-4 container-padding relative z-10">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h1 class="text-3xl md:text-6xl font-extrabold leading-tight mb-6 hero-title" data-aos="fade-down"
+                        style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                        Le Meilleur de <span class="text-red-600">Maroc Telecom</span><br>Chez Vous.
+                    </h1>
+                    <p class="text-lg md:text-2xl text-gray-200 mb-10 hero-subtitle" data-aos="fade-down"
+                        data-aos-delay="200">
+                        Fibre Optique ultra-rapide, forfaits mobiles adaptés à tous vos besoins, ainsi que des solutions dédiées pour les entreprises et les particuliers.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="400">
+                        <a href="#offres"
+                            class="bg-red-700 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-red-800 transition-all duration-300 ease-in-out transform hover:scale-105 glow btn-mobile">
+                            Voir les offres Fibre
+                        </a>
+                        <a href="#contact"
+                            class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300 btn-mobile">
+                            Être rappelé
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+                <a href="#offres" aria-label="Scroll down" class="text-white text-4xl">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </section>
+
+        <section id="offres" class="py-16 bg-gray-900 relative section-padding">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span class="text-red-500 font-bold text-sm uppercase tracking-wider">Les Incontournables</span>
+                    <h2 class="text-2xl md:text-4xl font-bold mt-2 mb-4">La Fibre Optique (FTTH)</h2>
+                    <p class="text-gray-400">Installation professionnelle par les équipes Maroc Telecom</p>
+                    <div class="w-20 h-1 bg-red-700 mx-auto mt-4"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div class="offer-card bg-gray-800 rounded-2xl p-0 text-center relative overflow-hidden" data-aos="flip-left">
+                        <div class="bg-red-700 py-6">
+                            <h3 class="text-xl font-medium text-white mb-1">Fibre optique</h3>
+                            <div class="text-5xl font-extrabold text-white">400<span class="text-2xl font-normal"> DH/mois</span></div>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <div class="space-y-2 mb-6 text-sm">
+                                <div class="feature-box">
+                                    <i class="fas fa-tachometer-alt"></i> 100 Mb/s
+                                </div>
+                                <div class="feature-box">
+                                    <i class="fas fa-phone-alt"></i> Illimités vers les fixes nationaux
+                                </div>
+                                <div class="feature-box">
+                                    <i class="fas fa-mobile-alt"></i> 
+                                    <div>
+                                        10H vers mobile<br>
+                                        <span class="text-gray-400 text-xs">dont 2H vers l'international Zone 1</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-auto mb-6 text-left space-y-1">
+                                <p class="text-xs text-gray-400">• Frais Installation: 200 DH</p>
+                            </div>
+
+                            <a href="#contact" class="block w-full bg-gray-900 border border-gray-700 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition-colors">Acheter</a>
+                        </div>
+                    </div>
+
+                    <div class="offer-card bg-gray-800 rounded-2xl p-0 text-center relative overflow-hidden transform md:-translate-y-4 border-red-600 border-2 shadow-2xl" data-aos="flip-left" data-aos-delay="100">
+                        <div class="bg-red-700 py-6">
+                            <h3 class="text-xl font-medium text-white mb-1">Fibre optique</h3>
+                            <div class="text-5xl font-extrabold text-white">500<span class="text-2xl font-normal"> DH/mois</span></div>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <div class="space-y-2 mb-6 text-sm">
+                                <div class="feature-box">
+                                    <i class="fas fa-tachometer-alt"></i> 200 Mb/s
+                                </div>
+                                <div class="feature-box">
+                                    <i class="fas fa-phone-alt"></i> Illimités vers les fixes nationaux
+                                </div>
+                                <div class="feature-box">
+                                    <i class="fas fa-mobile-alt"></i> 
+                                    <div>
+                                        20H vers mobile<br>
+                                        <span class="text-gray-400 text-xs">dont 4H vers l'international Zone 1</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-auto mb-6 text-left space-y-1">
+                                <p class="text-xs text-gray-400">• Frais Installation: 200 DH</p>
+                            </div>
+
+                            <a href="#contact" class="block w-full bg-gray-900 border border-gray-700 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition-colors">Acheter</a>
+                        </div>
+                    </div>
+
+                    <div class="offer-card bg-gray-800 rounded-2xl p-0 text-center relative overflow-hidden" data-aos="flip-left" data-aos-delay="200">
+                        <div class="absolute top-4 right-4 bg-gray-800 text-white text-xs font-bold px-2 py-1 rounded border border-gray-600 z-10">NOUVEAU</div>
+                        <div class="bg-red-700 py-6">
+                            <h3 class="text-xl font-medium text-white mb-1">Fibre optique</h3>
+                            <div class="text-5xl font-extrabold text-white">1000<span class="text-2xl font-normal"> DH/mois</span></div>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <div class="space-y-2 mb-6 text-sm">
+                                <div class="feature-box">
+                                    <i class="fas fa-tachometer-alt"></i> 1 Gb/s
+                                </div>
+                                <div class="feature-box">
+                                    <i class="fas fa-phone-alt"></i> Illimités vers les fixes et mobiles nationaux
+                                </div>
+                                <div class="feature-box">
+                                    <i class="fas fa-globe"></i> 20H vers l'international
+                                </div>
+                            </div>
+
+                            <div class="mt-auto mb-6 text-left space-y-1">
+                                <p class="text-xs text-gray-400">• Frais Installation: 200 DH</p>
+                            </div>
+
+                            <a href="#contact" class="block w-full bg-gray-900 border border-gray-700 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition-colors">Acheter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="py-16 lg:py-20 relative section-padding bg-gray-800">
+            <div class="container mx-auto px-4 container-padding">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span class="text-red-500 font-bold text-sm uppercase tracking-wider">Nos Services</span>
+                    <h2 class="text-2xl md:text-4xl font-bold mt-2 mb-4">Tout l'univers Maroc Telecom</h2>
+                    <div class="w-20 h-1 bg-red-700 mx-auto mt-4"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="card-gradient rounded-xl p-6 transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer service-card"
+                        data-aos="fade-up">
+                        <div class="text-red-600 text-4xl mb-6"><i class="fas fa-mobile-alt"></i></div>
+                        <h3 class="text-xl font-bold mb-4">Forfaits Mobiles</h3>
+                        <p class="text-gray-400 mb-6">Forfaits Liberté, Forfaits Maîtrisés et Forfaits Particuliers. Des offres Voix et Data adaptées à votre budget.</p>
+                        <a href="#contact" class="text-red-500 hover:text-red-400 font-medium flex items-center group">
+                            Voir les forfaits <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+
+                    <div class="card-gradient rounded-xl p-6 transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer service-card"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div class="text-red-600 text-4xl mb-6"><i class="fas fa-shopping-bag"></i></div>
+                        <h3 class="text-xl font-bold mb-4">Pack Smartphones</h3>
+                        <p class="text-gray-400 mb-6">Accédez aux derniers smartphones officiels distribués par GSM Al Maghrib avec votre abonnement.</p>
+                        <a href="#contact" class="text-red-500 hover:text-red-400 font-medium flex items-center group">
+                            Se renseigner <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+
+                    <div class="card-gradient rounded-xl p-6 transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer service-card"
+                        data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-red-600 text-4xl mb-6"><i class="fas fa-phone-square-alt"></i></div>
+                        <h3 class="text-xl font-bold mb-4">Fixe & Internet ADSL</h3>
+                        <p class="text-gray-400 mb-6">Solutions classiques Phony et ADSL pour les zones non couvertes par la fibre optique.</p>
+                        <a href="#contact" class="text-red-500 hover:text-red-400 font-medium flex items-center group">
+                            Vérifier éligibilité <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-us" class="py-16 lg:py-20 bg-gray-900 relative section-padding">
+            <div class="container mx-auto px-4 container-padding relative z-10">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span class="text-red-500 font-bold text-sm uppercase tracking-wider">Pourquoi Enigme Telecom ?</span>
+                    <h2 class="text-2xl md:text-4xl font-bold mt-2 mb-4">Votre Interlocuteur de Proximité</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-gray-800 rounded-xl p-6 text-center transform hover:-translate-y-2 transition-transform duration-300"
+                        data-aos="zoom-in-up">
+                        <div class="inline-flex items-center justify-center p-3 bg-white rounded-lg mb-6 shadow-lg">
+                            <img src="./gsm.png" alt="Logo GSM Al Maghrib" class="h-12 w-auto object-contain">
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Distributeur Agréé</h3>
+                        <p class="text-gray-400">Nous sommes partenaire officiel (Apporteur d'Affaires). Vous bénéficiez des prix et garanties officielles de Maroc Telecom.</p>
+                    </div>
+
+                    <div class="bg-gray-800 rounded-xl p-6 text-center transform hover:-translate-y-2 transition-transform duration-300"
+                        data-aos="zoom-in-up" data-aos-delay="100">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-900 rounded-full mb-6">
+                            <i class="fas fa-user-clock text-red-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Rapidité de Service</h3>
+                        <p class="text-gray-400">Ne perdez pas de temps en agence. Nous traitons votre demande et lançons la procédure d'installation immédiatement.</p>
+                    </div>
+
+                    <div class="bg-gray-800 rounded-xl p-6 text-center transform hover:-translate-y-2 transition-transform duration-300"
+                        data-aos="zoom-in-up" data-aos-delay="200">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-900 rounded-full mb-6">
+                            <i class="fas fa-hand-holding-heart text-red-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Suivi Personnalisé</h3>
+                        <p class="text-gray-400">De la signature du contrat à l'installation par les techniciens, nous suivons votre dossier.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       <section id="contact" class="py-16 lg:py-20 relative section-padding">
+            <div class="container mx-auto px-4 container-padding">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span class="text-red-500 font-bold text-sm uppercase tracking-wider">Souscription & Renseignements</span>
+                    <h2 class="text-2xl md:text-4xl font-bold mt-2 mb-4">Commandez votre ligne aujourd'hui</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Remplissez ce formulaire pour être rappelé par un agent commercial Enigme Telecom.</p>
+                    <div class="w-20 h-1 bg-red-700 mx-auto mt-4"></div>
+                </div>
+                
+                <div class="grid lg:grid-cols-2 gap-8 bg-gray-800 p-6 md:p-8 rounded-xl card-gradient contact-grid">
+                    <div class="flex flex-col space-y-4">
+                        <h3 class="text-xl font-bold mb-2">Formulaire de Contact</h3>
+                        <form id="contact-form" action="https://formspree.io/f/xpwyzeeg" method="POST" class="space-y-6">
+                            <input type="hidden" name="_subject" value="Nouvelle demande d'abonnement - Enigme Telecom">
+                            
+                            <div data-aos="fade-up" data-aos-delay="100">
+                                <label for="name" class="block text-gray-300 mb-2 font-medium">Nom complet *</label>
+                                <input type="text" id="name" name="name" required 
+                                       placeholder="Votre nom"
+                                       class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-white placeholder-gray-400 transition-shadow">
+                            </div>
+                            
+                            <div data-aos="fade-up" data-aos-delay="200">
+                                <label for="phone" class="block text-gray-300 mb-2 font-medium">Numéro de téléphone *</label>
+                                <input type="tel" id="phone" name="phone" required
+                                       placeholder="06 XX XX XX XX"
+                                       class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-white placeholder-gray-400 transition-shadow">
+                            </div>
+
+                            <div data-aos="fade-up" data-aos-delay="300">
+                                <label for="email" class="block text-gray-300 mb-2 font-medium">Adresse e-mail</label>
+                                <input type="email" id="email" name="email" 
+                                       placeholder="votre@email.com"
+                                       class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-white placeholder-gray-400 transition-shadow">
+                            </div>
+                            
+                            <div data-aos="fade-up" data-aos-delay="400">
+                                <label for="service" class="block text-gray-300 mb-2 font-medium">Je suis intéressé par :</label>
+                                <select id="service" name="service" 
+                                        class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-white">
+                                    <option value="fibre_optique">Fibre Optique (FTTH)</option>
+                                    <option value="forfait_mobile">Forfait Mobile</option>
+                                    <option value="pack_smartphone">Pack Smartphone</option>
+                                    <option value="adsl_fixe">ADSL / Fixe</option>
+                                    <option value="autre">Autre renseignement</option>
+                                </select>
+                            </div>
+                            
+                            <div data-aos="fade-up" data-aos-delay="500">
+                                <label for="message" class="block text-gray-300 mb-2 font-medium">Message (Optionnel)</label>
+                                <textarea id="message" name="message" rows="3" 
+                                          placeholder="Précisez votre besoin..."
+                                          class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-white placeholder-gray-400 transition-shadow"></textarea>
+                            </div>
+                            
+                            <div data-aos="" data-aos-delay="">
+                                <button type="submit" 
+                                        class="w-full bg-red-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-800 transition-all duration-300 ease-in-out transform hover:scale-105 glow flex items-center justify-center">
+                                    <span id="submit-text">Envoyer ma demande</span>
+                                </button>
+                            </div>
+                            <p id="form-status" class="text-center mt-4 h-6 transition-all duration-300"></p>
+                        </form>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <div data-aos="fade-up" data-aos-delay="100">
+                            <h3 class="text-xl font-bold mb-6">Nos Coordonnées</h3>
+                            <p class="text-gray-400 mb-8">Basé à Casablanca, nous sommes disponibles pour répondre à toutes vos questions concernant les offres Maroc Telecom.</p>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start" data-aos="fade-up" data-aos-delay="200">
+                                <i class="fas fa-map-marker-alt text-red-500 text-xl mr-4 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-lg mb-1">Localisation</h4>
+                                    <p class="text-gray-400">64, rue Abdellah El Mediouni, Derb Omar Casablanca 20360</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start" data-aos="fade-up" data-aos-delay="300">
+                                <i class="fas fa-phone text-red-500 text-xl mr-4 mt-1"></i>
+                                <div class="space-y-3">
+                                    <div>
+                                        <h4 class="font-semibold text-lg mb-0">Direction Générale</h4>
+                                        <a href="tel:+212661507027" class="text-gray-400 hover:text-red-500 transition-colors block">+212 661 507 027</a>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg mb-0">Direction Commerciale</h4>
+                                        <a href="tel:+212661705015" class="text-gray-400 hover:text-red-500 transition-colors block">+212 661 705 015</a>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg mb-0">Réclamation & SAV</h4>
+                                        <a href="tel:+212666931276" class="text-gray-400 hover:text-red-500 transition-colors block">+212 666 931 276</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start" data-aos="fade-up" data-aos-delay="400">
+                                <i class="fas fa-envelope text-red-500 text-xl mr-4 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-lg mb-1">E-mail</h4>
+                                    <a href="mailto:enigmetelecome.gsm@gmail.com" class="text-gray-400 hover:text-red-500 transition-colors">enigmetelecome.gsm@gmail.com</a>
+                                </div>
+                            </div>
+                            
+                            <div class="pt-4 border-t border-gray-700" data-aos="fade-up" data-aos-delay="500">
+                                <p class="text-xs text-gray-500">
+                                    <i class="fas fa-lock mr-1"></i> Confidentialité : Vos données sont traitées de manière confidentielle et utilisées uniquement dans le cadre de votre abonnement, conformément à la loi 09-08.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 pt-12 pb-8 relative border-t border-gray-800">
+        <div class="container mx-auto px-4 container-padding">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 footer-grid">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">ENIGME TELECOM</h3>
+                    <p class="text-gray-400 mb-6">Apporteur d'Affaires agréé par GSM Al Maghrib pour la distribution des produits et services Maroc Telecom.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Offres</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#offres" class="text-gray-400 hover:text-white transition-colors">Fibre Optique</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition-colors">Forfaits Mobiles</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition-colors">Téléphonie Fixe</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Légal</h3>
+                    <ul class="space-y-2">
+                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Mentions Légales</a></li>
+                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Protection des données</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Partenaire</h3>
+                    <div class="bg-white p-3 rounded-lg inline-block">
+                        <img src="./gsm.png" alt="GSM Al Maghrib" class="w-28 h-auto object-contain">
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">Business Services</p>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+                <p>&copy; <span id="current-year">2025</span> Enigme Telecom. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top"
+        class="fixed bottom-5 right-5 w-12 h-12 bg-red-700 text-white rounded-full hidden items-center justify-center shadow-lg hover:bg-red-800 transition-all z-50">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                disable: prefersReducedMotion
+            });
+
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMenuButton = document.getElementById('close-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            function toggleMobileMenu() {
+                const isOpen = mobileMenu.classList.toggle('open');
+                mobileMenuButton.setAttribute('aria-expanded', isOpen);
+                document.body.style.overflow = isOpen ? 'hidden' : '';
+            }
+
+            mobileMenuButton.addEventListener('click', toggleMobileMenu);
+            closeMenuButton.addEventListener('click', toggleMobileMenu);
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', toggleMobileMenu);
+            });
+
+            // Particles
+            if (!prefersReducedMotion) {
+                const container = document.getElementById('particles');
+                const particleCount = 20;
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    const size = Math.random() * 6 + 2;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+                    particle.style.animationDelay = `${Math.random() * 5}s`;
+                    particle.style.animationDuration = `${Math.random() * 10 + 10}s, 2s`;
+                    container.appendChild(particle);
+                }
+            }
+
+            // Back to top
+            const backToTopButton = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopButton.classList.remove('hidden');
+                    backToTopButton.classList.add('flex');
+                } else {
+                    backToTopButton.classList.add('hidden');
+                    backToTopButton.classList.remove('flex');
+                }
+            });
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+        
+        // Form Handling
+         const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                formStatus.textContent = 'Envoi en cours...';
+                formStatus.className = 'text-red-500';
+                
+                // Simulate sending
+                setTimeout(() => {
+                    formStatus.textContent = 'Merci ! Votre demande a été reçue.';
+                    formStatus.className = 'text-green-400';
+                    contactForm.reset();
+                    setTimeout(() => { formStatus.textContent = ''; }, 5000);
+                }, 1500);
+            });
+    </script>
+</body>
+</html>
